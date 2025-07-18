@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/uesleicarvalhoo/marsrover/internal/config"
-	transport "github.com/uesleicarvalhoo/marsrover/internal/http"
-	"github.com/uesleicarvalhoo/marsrover/internal/ioc"
+	server "github.com/uesleicarvalhoo/marsrover/internal/http"
 	"github.com/uesleicarvalhoo/marsrover/internal/logger"
 )
 
@@ -22,21 +20,8 @@ func main() {
 		Env:            config.GetString("ENV"),
 	})
 
-	missionSvc := ioc.OrchestratorMissionService()
+	srv := server.NewServer()
 
-	mux := http.NewServeMux()
-	transport.RegisterHandlers(mux, missionSvc)
-
-	port := config.GetInt("HTTP_PORT")
-
-	srv := &http.Server{
-		Addr:         fmt.Sprintf(":%d", port),
-		Handler:      mux,
-		ReadTimeout:  config.GetDuration("HTTP_SERVER_READ_TIMEOUT"),
-		WriteTimeout: config.GetDuration("HTTP_SERVER_WRITE_TIMEOUT"),
-	}
-
-	logger.Info("HTTP server listening on http://localhost:%d", port)
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		logger.Fatal("server error: %v", err)
 	}
