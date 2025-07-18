@@ -24,7 +24,3 @@
 ---
 
 ## 🧪 How to Test
-
-1. Build:
-   ```bash
-   go build -o marsrover ./cmd
