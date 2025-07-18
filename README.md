@@ -1,49 +1,49 @@
 
 # 🚀 Mars Rover Challenge
 
-Um projeto para simular o controle de múltiplos rovers explorando a superfície de Marte, desenvolvido como solução para o **Teste Backend**. 💥
+A project to simulate the control of multiple rovers exploring the surface of Mars, developed as a solution for the **Backend Test**. 💥
 
 ---
 
-## 📦 Sobre o projeto
+## 📦 About the Project
 
-O sistema lê arquivos com instruções de missão, executa o movimento de vários rovers em paralelo sobre um plateau virtual, e retorna suas posições finais em formato **plain-text**.
+The system reads mission instruction files, executes the movement of multiple rovers in parallel across a virtual plateau, and returns their final positions in **plain-text** format.
 
-O fluxo completo:
+The complete flow:
 
-1. 📂 Upload do arquivo com as instruções.
-2. 🧠 Parsing do arquivo → validação do plateau e rovers.
-3. ⚙️ Execução concorrente das instruções com o Orchestrator.
-4. 📦 Resposta HTTP com as posições finais na mesma ordem de entrada.
-
----
-
-## 🚀 Stack utilizada
-
-- **Go 1.21+** (padrão)
-- **Stdlib**: sem libs externas no core (conforme exigência do teste)
-- **Testes:** `stretchr/testify`, `httptest`, `mock`
-- **Build/Test Tools:** go mod, go test
+1. 📂 Upload the instruction file.
+2. 🧠 Parse the file → validate plateau and rovers.
+3. ⚙️ Concurrently execute instructions with the Orchestrator.
+4. 📦 Return HTTP response with the final positions in the same input order.
 
 ---
 
-## 📂 Estrutura do projeto
+## 🚀 Tech Stack
+
+- **Go 1.21+** (default)
+- **Stdlib only:** no external libraries in core (as required by the test)
+- **Testing:** `stretchr/testify`, `httptest`, `mock`
+- **Build/Test Tools:** `go mod`, `go test`
+
+---
+
+## 📂 Project Structure
 
 ```
 marsrover/
-├── orchestrator/       # Orquestra execução concorrente dos rovers
-├── rover/              # Lógica de movimento e direção dos rovers
-├── plateau/            # Valida e gerencia limites do plateau
-├── internal/http/      # Handlers, parser, formatter erros HTTP e server
-├── cmd/server.go       # Entry point da API HTTP
+├── orchestrator/       # Orchestrates concurrent execution of rovers
+├── rover/              # Logic for rover movement and direction
+├── plateau/            # Validates and manages plateau boundaries
+├── internal/http/      # Handlers, parser, formatter, HTTP errors, and server
+├── cmd/server.go       # API HTTP entry point
 └── README.md
 ```
 
 ---
 
-## Comandos
+## 💻 Makefile Commands
 
-O projeto conta com um Makefile com alguns comandos úteis, você pode consultar os comandos disponíveis através do `make help`
+The project includes a Makefile with useful commands. You can view all available targets by running `make help`:
 
 ```
 Usage:
@@ -51,44 +51,47 @@ Usage:
 
 Targets:
 help                Display this help
-install-tools       Install gofumpt, gocritic and swaggo
+install-tools       Install gofumpt, gocritic, and swaggo
 lint                Run golangci-lint
 format              Format code
 test                Run all tests
 test/unit           Run unit tests
-test/coverage       Run tests, make coverage report and display it into browser
+test/coverage       Run tests, generate coverage report, and open in browser
 test/coverage-browser  Open coverage report in browser
-swagger             Generate swagger docs
-run                 Run http server
+swagger             Generate Swagger docs
+run                 Run HTTP server
 clean               Remove cache files
 ```
 
-## 🎲 Como rodar o projeto
-
-```bash
-# Clone este repositório
-$ git clone <https://github.com/uesleicarvalhoo/marsover>
-
-# Acesse a pasta do projeto no terminal
-$ cd marsover
-
-# Você pode facilmente iniciar as dependencias de desenvolvimento com o comando
-$ docker compose build && docker compose up -d
-
-# Isso vai iniciar o container:
-# backend       localhost:5000  -> backend da aplicação
-```
 ---
 
-## 🧪 Testes
+## 🎲 How to Run the Project
 
-### Unitários e de integração
+```bash
+# Clone this repository
+git clone <https://github.com/uesleicarvalhoo/marsover>
+
+# Navigate to the project directory
+cd marsover
+
+# Build and start the development dependencies with Docker Compose
+docker compose build && docker compose up -d
+
+# This will start the container:
+# backend       localhost:5000  -> application backend
+```
+
+---
+
+## 🧪 Testing
+
+### Unit and Integration Tests
 
 ```bash
 make test/unit
 ```
 
-### Teste unitários e de integração full (upload → resposta)
+### Full unit and integration test (upload → response)
 
 ```bash
 make test
@@ -100,9 +103,9 @@ make test
 
 ### POST `/missions`
 
-Recebe um arquivo `.txt` com as instruções da missão.
+Accepts a `.txt` file containing mission instructions.
 
-#### Exemplo de arquivo
+#### Example file
 
 ```
 5 5
@@ -118,7 +121,7 @@ MMRMMRMRRM
 curl -X POST -F 'file=@mission.txt' http://localhost:8080/missions
 ```
 
-#### Resposta
+#### Response
 
 ```
 1 3 N
@@ -127,35 +130,35 @@ curl -X POST -F 'file=@mission.txt' http://localhost:8080/missions
 
 ---
 
-## ⚙️ Arquitetura
+## ⚙️ Architecture
 
-- **Plateau:** define os limites e valida coordenadas.
-- **Rover:** movimenta-se com comandos (`L`, `R`, `M`).
-- **Orchestrator:** executa rovers em paralelo (controla workers).
-- **HTTP Layer:** parser do arquivo, handlers e resposta plain-text.
-
----
-
-## 🤝 Contribuindo
-
-1. Fork este repositório
-2. Crie uma branch: `git checkout -b feature/sua-feature`
-3. Commit: `git commit -m 'Minha feature'`
-4. Push: `git push origin feature/sua-feature`
-5. Abra um Pull Request
+- **Plateau:** defines boundaries and validates coordinates.
+- **Rover:** moves according to commands (`L`, `R`, `M`).
+- **Orchestrator:** executes rovers concurrently (manages workers).
+- **HTTP Layer:** parses file, handles requests, and returns plain-text responses.
 
 ---
 
-## 📜 Requisitos atendidos
+## 🤝 Contributing
 
-✅ Sem libs externas no core
-✅ Libs externas apenas para testes
-✅ Concurrent execution
-✅ API HTTP funcional com upload
-✅ Testes unitários + integração (100% flow)
+1. Fork this repository
+2. Create your branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m 'Add your feature'`
+4. Push to your branch: `git push origin feature/your-feature`
+5. Open a Pull Request
 
 ---
 
-## 📝 Licença
+## 📜 Requirements Met
 
-Este projeto é open-source e está sob a licença MIT.
+✅ No external libraries in core
+✅ External libraries only for testing
+✅ Concurrent execution supported
+✅ Functional HTTP API with file upload
+✅ Unit + integration tests (full flow coverage)
+
+---
+
+## 📝 License
+
+This project is open-source and licensed under the MIT License.
