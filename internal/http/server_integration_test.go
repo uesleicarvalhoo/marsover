@@ -26,7 +26,9 @@ func TestFullMissionIntegration(t *testing.T) {
 	config.Set("HTTP_PORT", "8080")
 	server := transport.NewServer()
 
-	go server.ListenAndServe()
+	go func() {
+		_ = server.ListenAndServe()
+	}()
 
 	defer server.Close()
 

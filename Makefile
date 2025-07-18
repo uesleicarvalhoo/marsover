@@ -23,6 +23,7 @@ install-tools:  ## Install gofumpt, gocritic and swaggo
 lint:  ## Run golangci-lint and gocritic
 	@golangci-lint run ./...
 	@gocritic check ./...
+	@golangci-lint run ./... --exclude-dirs=docs
 
 format:  ## Format code
 	@gofumpt -e -l -w .

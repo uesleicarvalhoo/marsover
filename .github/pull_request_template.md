@@ -1,30 +1,26 @@
-# 🚀 Descrição do Pull Request
+# 🚀 Pull Request Description
 
-- Adiciona [funcionalidade/correção/refatoração] no módulo [nome do módulo]
-- Motivo: [Por que foi necessário? Qual problema resolve?]
+- Adds [feature/fix/refactor] to [module name]
+- Reason: [Why was this needed? What problem does it solve?]
 
 ---
 
 ## ✅ Checklist
 
-- [ ] Código revisado e seguindo boas práticas
-- [ ] Testes unitários criados ou atualizados
-- [ ] Testes de integração criados ou atualizados
-- [ ] Nenhum linting/formatting pendente
-- [ ] Build Docker testado com sucesso
+- [ ] Code reviewed and follows best practices
+- [ ] Unit tests created or updated
+- [ ] Integration tests created or updated
+- [ ] No pending linting/formatting issues
+- [ ] Docker build tested successfully
 
 ---
 
-## 📦 Mudanças principais
+## 📦 Main Changes
 
-- 
+- 📁 **New files added:** [list]
+- 🗑️ **Files removed:** [list]
+- ✏️ **Files modified:** [list]
 
 ---
 
-## 🧪 Como testar
-
-1. Build:
-
-   ```bash
-   make run
-   ```
+## 🧪 How to Test

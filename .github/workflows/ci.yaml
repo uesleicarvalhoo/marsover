@@ -26,7 +26,7 @@ jobs:
           version: v1.54.2
 
       - name: Run Linter
-        run: golangci-lint run ./...
+        run: golangci-lint run ./... --exclude-dirs=docs
 
       - name: Run Unit and Integration Tests
         run: go test ./... -v
