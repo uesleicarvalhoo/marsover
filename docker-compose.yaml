@@ -1,0 +1,14 @@
+services:
+  marsrover:
+    container_name: marsrover-api
+    image: ghcr.io/uesleicarvalhoo/marsrover:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${HTTP_PORT:-9000}:${HTTP_PORT:-9000}"
+    environment:
+      - HTTP_PORT=${HTTP_PORT:-9000}
+    volumes:
+      - .:/marsover
+    restart: unless-stopped
